@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RxAndroidExample</string>
+    <string name="remaining_chars">Remaining chars: %1$s</string>
+    <string name="send">Send!</string>
+    <string name="enter_phone">Phone number</string>
+    <string name="enter_message_body">Type message</string>
+    <string name="message_sender">You</string>
+    <string name="solution_standard">Standard</string>
+    <string name="solution_rx">RxAndroid</string>
+    <string name="solution_rx_retrolambda">Rx + Retrolambda</string>
+
+</resources>
