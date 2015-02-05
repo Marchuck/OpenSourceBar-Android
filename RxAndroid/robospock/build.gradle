@@ -1,0 +1,42 @@
+def props = new Properties()
+file("../local.properties").withInputStream {
+    stream -> props.load(stream)
+}
+
+repositories {
+    maven {
+        url new File(props['sdk.dir'] + "/extras/android/m2repository/").toURI()
+    }
+}
+
+apply plugin: 'groovy'
+
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:1.8.6"
+    compile 'org.robospock:robospock:0.5.0'
+    compile 'cglib:cglib-nodep:3.1'
+    compile 'com.android.support:recyclerview-v7:21.0.3'
+    compile 'com.android.support:support-v4:19.0.3'
+    compile project(":app")
+    compile fileTree(dir: project(":app").file("build/libs"), include: "*.jar")
+}
+
+compileTestJava.options.compilerArgs = ['-proc:none']
+
+sourceSets.test.java.srcDirs += ['../app/build/generated/source/r/release']
+
+test {
+    systemProperty 'android.manifest', '../app/src/main/AndroidManifest.xml'
+    systemProperty 'android.resources', '../app/build/intermediates/res/release'
+    systemProperty 'android.assets', '../app/build/intermediates/res/release/raw'
+
+    minHeapSize = "128m"
+    maxHeapSize = "1024m"
+    jvmArgs '-XX:MaxPermSize=512m'
+
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+}
+
+tasks["compileJava"].dependsOn ":app:zip2jar"
