@@ -1,4 +1,4 @@
-# Open Source Bar Sample Projects for iOS
+# Open Source Bar Sample Projects for Android
 
 Projects are meant to be standalone examples of techniques and frameworks covering the similar areas of different Android programming aspects.
 
