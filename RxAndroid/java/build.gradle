@@ -1,5 +1,13 @@
 apply plugin: 'java'
 
+compileJava {
+    //enable compilation in a separate daemon process
+    options.fork = true
+
+    //enable incremental compilation
+    options.incremental = true
+}
+
 dependencies {
     compile 'io.reactivex:rxjava:1.0.4'
     testCompile 'junit:junit:4.12'

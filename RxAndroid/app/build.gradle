@@ -4,13 +4,13 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
 
 android {
-    compileSdkVersion 21
+    compileSdkVersion 19
     buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "com.polidea.opensourcebar.rxsample"
         minSdkVersion 19
-        targetSdkVersion 21
+        targetSdkVersion 19
         versionCode 1
         versionName "dev"
     }
@@ -26,17 +26,27 @@ android {
         }
     }
 
-    dependencies {
-        compile 'com.android.support:appcompat-v7:21.0.3'
-        compile 'com.android.support:recyclerview-v7:21.0.3'
-        compile 'com.google.dagger:dagger:2.0-SNAPSHOT'
-        compile 'io.reactivex:rxandroid:0.24.0'
-        compile 'com.jakewharton:butterknife:6.0.0'
-
-        apt "org.projectlombok:lombok:1.14.8"
-        apt "com.google.dagger:dagger-compiler:2.0-SNAPSHOT"
-
-        provided 'javax.annotation:jsr250-api:1.0'
-        provided "org.projectlombok:lombok:1.14.8"
+    lintOptions {
+        abortOnError false
     }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:19.0.+'
+    compile 'com.android.support:recyclerview-v7:21.0.3'
+    compile 'com.google.dagger:dagger:2.0-SNAPSHOT'
+    compile 'io.reactivex:rxandroid:0.24.0'
+    compile 'com.jakewharton:butterknife:6.0.0'
+
+    apt "org.projectlombok:lombok:1.14.8"
+    apt "com.google.dagger:dagger-compiler:2.0-SNAPSHOT"
+
+    provided 'javax.annotation:jsr250-api:1.0'
+    provided "org.projectlombok:lombok:1.14.8"
+}
+
+task zip2jar(type: Zip, dependsOn: "compileReleaseJava") {
+    from 'build/intermediates/classes/release'
+    destinationDir = file('build/libs')
+    extension = "jar"
 }
